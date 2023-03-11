@@ -1,0 +1,127 @@
+---
+title: "EDA"
+author: "SumitHawal"
+date: "2022-12-04"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot)
+library(dplyr)
+library(readr)
+library(ggplot2)
+# Change according to your file location, use backslash 
+bank <- 'C:\\Users\\smeet\\OneDrive\\Desktop\\IDMP Project\\bank-full.csv'
+bank <-  read_csv2(bank)
+bank <- na.omit(bank)
+```
+
+```{r}
+
+# Class of Outcomes 
+ggplot(data=bank,mapping= aes(x=y,fill=y)) + 
+  geom_bar()+ labs(x='Deposit',fill='Subscribed',
+  title='Number of term deposit that do not subscribe are way more than 
+  those who subscribe')
+
+
+# Deposit by Job-type
+ggplot(data=bank,mapping= aes(x = job,fill=y)) + 
+  geom_bar()+ 
+  labs(title="Deposits by type of Jobs",fill='Subscribed')+
+  theme(axis.text.x = element_text(size=8,angle = 45,hjust=1.0))
+
+
+# Deposit by Marital-type
+ggplot(data=bank,mapping= aes(x=marital,fill=y)) + 
+  geom_bar(position='dodge')+ labs(fill='Subscribed',title='Subscription by marital status')+
+  theme(axis.text.x = element_text(hjust=1.0))
+
+
+# Deposit based on education
+ggplot(bank, 
+       aes(x = y, 
+           fill = education)) + 
+  geom_bar(position = "fill") +
+  labs(y = "Proportion",x='Subscribed',fill='Level of Education')
+
+
+# Deposit based on month 
+ggplot(bank,aes(x=y,fill=month)) +
+  geom_bar(position='fill') + labs(y='Proportion',x='Subscribed',fill='Months')
+
+
+# Deposit based on duration 
+ggplot(bank, aes(duration, fill = y)) +
+  geom_density(alpha = 0.5)+ labs(x='total duration of calls',y='Density',fill='Subscribed')
+
+# Deposit based on age
+ggplot(bank,aes(x=y,y= age))+ geom_boxplot()+labs(x='Subscribed')
+
+
+
+# Deposit based on age
+ggplot(bank, aes(age, fill = y))+ labs(fill='Subscribed')+
+  geom_density(alpha = 0.5)
+
+
+# 
+ggplot(bank, aes(balance, fill = y)) + labs(fill='Subscribed',title=' Subscription based on balance')+
+  geom_density(alpha = 0.5)
+
+
+# Average duration of calls by month
+ggplot(data =bank,
+       mapping = aes(x= month,
+                     y= duration,color=y)) + 
+  geom_point(stat='summary',fun=mean) +
+  labs(color='Subscribed',x= 'Month',y=' Avergae Duration',
+       title='Average call time per month')
+
+# call duration per month boxplot 
+ggplot(data =bank,
+       mapping = aes(x= month,
+                     y= duration,color=y)) + 
+  geom_boxplot() + theme_dark()+ labs(y='Total Call Duration',x='Month',color='Subscribed')
+
+
+
+# count of contacts per month during this campaign by month
+ggplot(data =bank,
+       mapping = aes(x= month,
+                     y= campaign,color=y)) + 
+  geom_boxplot()+ labs(title='Count of contacts per month',color='Subscribed')
+# 
+ggplot(data =bank,
+       mapping = aes(x= month,
+                     y= campaign,color=y)) + 
+  geom_point(stat='summary',fun=mean) +
+  labs(color='Subscribed',x= 'Month',y='Avergae Contacts',
+       title='Average contacts per month')
+
+
+
+# How age changes with balance 
+ggplot(data =bank,
+       mapping = aes(x= age,
+                     y= balance,color=y)) + 
+  geom_point() + labs(x='Age',y='Total Balance',color='Subscribed')
+
+
+
+# Age of different job types 
+ggplot(bank,aes(x= job,y= age,color=y))+ geom_boxplot()+
+  theme(axis.text.x = element_text(size=8,angle =45,hjust=1.0))+ theme_dark()+
+  labs(title='Jobs of Different Age Groups',color='Deposit')
+ 
+
+# Balance of different job types  
+ggplot(bank,aes(x= job,y= balance,color=y))+ geom_boxplot()+
+  theme(axis.text.x = element_text(size=8,angle = 45,hjust=1.0))+
+  labs(title='Amount of Jobs of different job-types',x='Jobs',y='Balance Amount',color='Deposit')
+
+```
