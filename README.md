@@ -1,4 +1,4 @@
-# DS-5110-Introduction-to-Data-Management-and-Processing-Project
+# 
 
 1) Compared performance of various DSS-based models to determine potential subscribers for future campaigns. <br>
 2) Gradient boosting algorithm was used to iteratively select a set of features for tuning and regularization, which improved its ability to generalize and prevented        overfitting. <br>
